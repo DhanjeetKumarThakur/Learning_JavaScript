@@ -196,3 +196,37 @@ Here
 })();
 ```
 
+## Callback Functions
+### what is callback function?
+A function that is passed as an argument to another function and is called (executed) later by that function.
+
+It can be anonymous, but it doesn’t have to be.
+```js
+const arr = [5, 1, 7, 9, 6]
+
+arr.forEach(function(item) {
+  console.log(item);
+});
+```
+Here, the function is the callback because forEach calls it for each element.
+✅ Key points:
+
+- Passed as an argument
+- Executed later
+- Can be named or anonymous
+
+Yes! Here’s a simple example with a named callback function 👇
+```js
+function printValue(item) {
+  console.log(item);
+}
+
+let arr = [1, 2, 3];
+
+arr.forEach(printValue);
+```
+- 🔹 `printValue` is a named function
+- 🔹 It’s passed to forEach as a callback
+- 🔹 forEach calls it for each array element
+
+So even though the function has a name, it’s still a callback function because it’s passed into another function 👍
