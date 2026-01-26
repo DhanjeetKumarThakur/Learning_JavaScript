@@ -230,3 +230,23 @@ arr.forEach(printValue);
 - 🔹 forEach calls it for each array element
 
 So even though the function has a name, it’s still a callback function because it’s passed into another function 👍
+
+## High Order Functions
+### A higher-order function is a function that takes another function as a parameter or returns a function.
+
+Example (takes a function):
+```js
+arr.forEach(printValue);
+```
+Here, `forEach` is a higher-order function because it takes printValue as axn argument.
+
+Example (returns a function):
+```js
+function multiply(factor) {
+  return function (num) {
+    return num * factor;
+  };
+}
+```
+Short version to remember:
+#### **Higher-order function = uses functions as values**
