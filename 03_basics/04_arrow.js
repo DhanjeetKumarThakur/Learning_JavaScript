@@ -68,7 +68,7 @@ function chai2() {
     console.log(username); // Output : Dhanjeet --> function scope variables can directly access we don't need to use 'this' key for it. 
 }
 
-chai2(); 
+//chai2(); 
 
 
 /* 
@@ -91,9 +91,34 @@ chai2();
 //Actually Arrow function is similar to function expression  in fact it is same just we don't use function keyword. Let's see with example. 
 
 const demo = function () {
-    let userName = 'Dhanjeet';
-    console.log(userName);
-}
+  let userName = 'Dhanjeet';
+  console.log(userName);
+};
 
-demo();
+//demo();
 
+const arrowFunctionExample = () =>  {
+  let userName = 'Dhanjeet';
+  console.log(userName);
+};
+//This looks almost same just with new syntax
+arrowFunctionExample();
+
+
+const addTwo = (num1, num2) => {
+  return num1 + num2; //explicity returning 
+};
+
+console.log(addTwo(5,7));
+
+const addThree = (num1, num2, num3) => (num1 + num2 + num3); //implicit returning --> we don't need return 
+
+console.log(addThree(1,4,5));
+
+//Okay fine but what if we want to return an object in single statement using arrow function? 
+//Let's try and check
+const heyUser = () => {userName : "Dhanjeet"}
+console.log(heyUser()) //Output: undefined --> why ? because we need to wrap the object with paranthesis '()' 
+
+const heyUser2 = () => ({userName : "Dhanjeet"})
+console.log(heyUser2()) //Output : { userName: 'Dhanjeet' }
