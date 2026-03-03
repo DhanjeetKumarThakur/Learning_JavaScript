@@ -250,3 +250,7 @@ function multiply(factor) {
 ```
 Short version to remember:
 #### **Higher-order function = uses functions as values**
+
+### Links: 
+- https://react.dev/reference/react
+- Frontend coding standards: https://github.com/airbnb/javascript
