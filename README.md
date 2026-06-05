@@ -4,6 +4,34 @@ A code repo to practice JavaScript using the codespaces
 ## To see the list of unclosed or running codespaces instances
 - `https://github.com/codespaces` 
 
+## Variables
+- In Javascript variables are declared in three ways ie. `let`, `const` & `var`. 
+```javascript
+const accountId = 1234;
+let accountEmail = 'dhanjeet@google.com';
+var accountPwd = "12345";
+accountCity = "Hyderabad";
+let accountState; //variable declared but not defined so if we console this ==> output : undefined
+
+
+//accountId = 4  // Not allowed because const variables values cannot be changed after initialization. 
+//TypeError: Assignment to constant variable
+//console.log(accountId)
+
+if(true) {
+    var a = 12;
+}
+console.log(a); //Output: 12
+
+
+if(true) {
+    const a = 12;
+    let b = 23;
+}
+console.log(a);  //Error
+```
+**Note:** Prefer not use var because of issue in block and functional scope
+
 ## The Golden Rules (memorize THESE)
 
 💡 Rule #1
