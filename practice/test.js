@@ -1,9 +1,9 @@
-console.log("Hello World");
+//console.log("Hello World");
 
 if(true) {
     const a = 12;
     let b = 23;
-    console.log(typeof a === "number");
+//    console.log(typeof a === "number");
 }
 //console.log(a); //Error
 
@@ -56,4 +56,38 @@ function eeCommerce(prices) {
     return {'total': totalPrice, 'average': averagePrice};
 }
 
-console.log(eeCommerce(prices));
+//console.log(eeCommerce(prices));
+
+/* Day 2*/
+const numbers = [1, 2, 3, 4];
+
+const result = numbers.map((num) =>  num * num);
+
+//console.log(result);
+
+function createUser(name) {
+    return function(task) {
+        if(task === 'login') {
+            console.log(`${name} performed login`);
+        } else if (task === 'logout') {
+            console.log(`${name} performed logout`);
+        }
+    }
+}
+
+const user = createUser("Dhanjeet");
+
+user("login");
+// "Dhanjeet performed login"
+
+user("logout");
+// "Dhanjeet performed logout"
+
+const multiply = function (a,b) {
+    return a*b;
+}
+
+const mult = (a,b) => (a*b);
+
+console.log(multiply(2,3));
+console.log(mult(2,4));
