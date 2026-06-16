@@ -1,5 +1,5 @@
-# JSWorkspace_Codespace
-A code repo to practice JavaScript using the codespaces
+# Learning_Javascript
+A code repo to practice JavaScript using the codespaces. 
 
 ## To see the list of unclosed or running codespaces instances
 - `https://github.com/codespaces` 
@@ -279,6 +279,68 @@ function multiply(factor) {
 Short version to remember:
 #### **Higher-order function = uses functions as values**
 
-### Links: 
+## Hoisting in Javascript.
+
+**Hoisting** is the behavior where JavaScript processes declarations before executing code.
+
+When JavaScript runs code, it creates an **Execution Context**. Every execution context has two phases:
+
+### 1. Creation Phase (Memory Creation Phase)
+
+JavaScript scans the code and allocates memory for variables and functions.
+
+* `var` variables are initialized with `undefined`.
+* Function declarations are stored completely in memory.
+* `let` and `const` are also hoisted, but they remain **uninitialized** until their declaration is reached (Temporal Dead Zone).
+
+### 2. Execution Phase
+
+JavaScript executes the code **line by line**.
+
+* Variable assignments happen when execution reaches those lines.
+* Function calls are executed.
+* When a function is called, a new Function Execution Context is created, executed, and then removed from the call stack after completion.
+
+### Key Points
+
+* Hoisting is about **declarations**, not assignments.
+* `var` → hoisted and initialized to `undefined`.
+* Function declarations → fully hoisted.
+* `let` and `const` → hoisted but inaccessible before declaration (TDZ).
+* Assignments happen during the execution phase, not during the creation phase.
+
+Think: 
+
+```JavaScript
+Global Execution Context
+│
+├── Creation Phase
+│   ├── var -> undefined
+│   ├── function declaration -> full definition
+│   └── let/const -> uninitialized (TDZ)
+│
+└── Execution Phase
+    ├── execute code line by line
+    ├── assign values
+    ├── execute function calls
+    └── create new execution contexts for functions
+```
+
+A quick interview-ready definition could be:
+
+> Hoisting is JavaScript's behavior of processing variable and function declarations during the Creation Phase of an Execution Context before the code is executed. var is initialized to undefined, function declarations are fully available, and let/const remain uninitialized until their declaration is reached (Temporal Dead Zone).
+
+> **TDZ (Temporal Dead Zone)** is the period between when a let or const variable is hoisted and when its declaration is executed.
+> During this period, the variable exists, but it cannot be accessed. Attempting to do so throws a ReferenceError.
+
+Example Code: 
+```javascript
+console.log(name); // ReferenceError
+
+let name = "Hitesh";
+```
+FYR for more examples to understand Hoisting see the [Hoisting example](01_basics/MyNotes.md)
+
+### Other Important Links: 
 - https://react.dev/reference/react
 - Frontend coding standards: https://github.com/airbnb/javascript
