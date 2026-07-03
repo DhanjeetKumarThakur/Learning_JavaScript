@@ -182,7 +182,7 @@ In one line:
 
 Destructuring = unpacking values from arrays or objects into variables 👍
 
-You can also rename a long object key while destructuring 
+You can also rename a object key while destructuring 
 ```JavaScript
 const course = {
     coursename: "js in hindi",
@@ -340,6 +340,300 @@ console.log(name); // ReferenceError
 let name = "Hitesh";
 ```
 FYR for more examples to understand Hoisting see the [Hoisting example](01_basics/MyNotes.md)
+
+# JavaScript Errors - Quick Notes
+
+## 1. SyntaxError
+
+**Definition:**
+Occurs when the JavaScript code has invalid syntax. The JavaScript engine cannot parse the code, so execution never starts.
+
+**Example 1: Missing parenthesis**
+
+```javascript
+if (true {
+    console.log("Hello");
+}
+```
+
+**Error:**
+
+```
+SyntaxError: Unexpected token '{'
+```
+
+**Example 2: Invalid variable declaration**
+
+```javascript
+const = 10;
+```
+
+**Error:**
+
+```
+SyntaxError: Unexpected token '='
+```
+
+**Java Analogy:**
+Equivalent to a compile-time syntax error.
+
+---
+
+## 2. ReferenceError
+
+**Definition:**
+Occurs when trying to access a variable that has not been declared.
+
+**Example 1**
+
+```javascript
+console.log(username);
+```
+
+**Error:**
+
+```
+ReferenceError: username is not defined
+```
+
+**Example 2**
+
+```javascript
+function greet() {
+    let name = "John";
+}
+
+console.log(name);
+```
+
+**Error:**
+
+```
+ReferenceError: name is not defined
+```
+
+**Java Analogy:**
+Similar to using an undeclared variable (Java catches this during compilation).
+
+---
+
+## 3. TypeError ⭐ (Most Common)
+
+**Definition:**
+Occurs when an operation is performed on a value of an inappropriate type.
+
+### Example 1: Accessing property of null
+
+```javascript
+const user = null;
+
+console.log(user.name);
+```
+
+**Error:**
+
+```
+TypeError: Cannot read properties of null
+```
+
+---
+
+### Example 2: Calling a non-function
+
+```javascript
+const age = 25;
+
+age();
+```
+
+**Error:**
+
+```
+TypeError: age is not a function
+```
+
+---
+
+### Example 3: Calling a method that doesn't exist
+
+```javascript
+const num = 100;
+
+num.toUpperCase();
+```
+
+**Error:**
+
+```
+TypeError: num.toUpperCase is not a function
+```
+
+**Java Analogy:**
+Comparable to `NullPointerException` or invoking a method on an incompatible object.
+
+---
+
+## 4. RangeError
+
+**Definition:**
+Occurs when a value is outside the valid range.
+
+### Example 1
+
+```javascript
+const arr = new Array(-5);
+```
+
+**Error:**
+
+```
+RangeError: Invalid array length
+```
+
+---
+
+### Example 2
+
+```javascript
+const num = 1;
+
+num.toFixed(200);
+```
+
+**Error:**
+
+```
+RangeError: toFixed() digits argument must be between 0 and 100
+```
+
+**Java Analogy:**
+Similar to passing an invalid argument that falls outside the allowed range.
+
+---
+
+## 5. URIError
+
+**Definition:**
+Occurs when `encodeURI()`, `decodeURI()`, `encodeURIComponent()`, or `decodeURIComponent()` receives a malformed URI.
+
+### Example 1
+
+```javascript
+decodeURIComponent("%");
+```
+
+**Error:**
+
+```
+URIError: URI malformed
+```
+
+### Example 2
+
+```javascript
+decodeURI("%E0%A4%A");
+```
+
+**Error:**
+
+```
+URIError: URI malformed
+```
+
+**Usage:**
+Rarely encountered in everyday application development.
+
+---
+
+## 6. EvalError
+
+**Definition:**
+Historically related to improper use of `eval()`. It is now very rare and generally not encountered in modern JavaScript.
+
+```javascript
+eval("console.log('Hello')");
+```
+
+This works without throwing an `EvalError`.
+
+**Note:**
+Avoid using `eval()` because it can introduce security and performance issues.
+
+---
+
+## 7. Custom Error
+
+**Definition:**
+You can throw your own errors using the `Error` class.
+
+### Example 1
+
+```javascript
+function withdraw(amount) {
+    if (amount < 0) {
+        throw new Error("Amount cannot be negative");
+    }
+
+    console.log("Withdrawal successful");
+}
+
+withdraw(-100);
+```
+
+**Output:**
+
+```
+Error: Amount cannot be negative
+```
+
+---
+
+### Example 2
+
+```javascript
+function login(user) {
+    if (!user) {
+        throw new Error("User is required");
+    }
+
+    console.log("Login successful");
+}
+```
+
+**Java Analogy:**
+
+```java
+throw new IllegalArgumentException("Amount cannot be negative");
+```
+
+---
+
+# Summary Table
+
+| Error Type     | When it Occurs                | Java Analogy                                         |
+| -------------- | ----------------------------- | ---------------------------------------------------- |
+| SyntaxError    | Invalid JavaScript syntax     | Compile-time syntax error                            |
+| ReferenceError | Variable doesn't exist        | Undeclared variable                                  |
+| TypeError      | Invalid operation on a value  | NullPointerException / Wrong method call             |
+| RangeError     | Value outside allowed range   | IllegalArgumentException                             |
+| URIError       | Invalid URI encoding/decoding | Invalid URL/URI processing                           |
+| EvalError      | Related to `eval()` (rare)    | No common equivalent                                 |
+| Error          | Custom application errors     | `throw new Exception()` / `IllegalArgumentException` |
+
+# Interview Tip
+
+If asked about JavaScript errors, mention these in order:
+
+1. SyntaxError
+2. ReferenceError
+3. TypeError (Most Important)
+4. RangeError
+5. URIError
+6. EvalError (Rare)
+7. Custom Error using `throw new Error()`
+
+For day-to-day JavaScript development, you'll mostly encounter **TypeError**, **ReferenceError**, **SyntaxError**, and **custom errors**.
+
 
 ### Other Important Links: 
 - https://react.dev/reference/react
