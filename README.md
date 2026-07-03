@@ -2,7 +2,7 @@
 A code repo to practice JavaScript using the codespaces. 
 
 ## To see the list of unclosed or running codespaces instances
-- `https://github.com/codespaces` 
+- [https://github.com/codespaces](https://github.com/codespaces)
 
 ## Variables
 - In Javascript variables are declared in three ways ie. `let`, `const` & `var`. 
@@ -72,12 +72,12 @@ if ([]) console.log("yes");  // ✅if check pass
 ```
 # Arrays
 - JavaScript array-copy operations create shallow copies. (All standard built-in copy operations with any JavaScript objects create shallow copies, rather than deep copies).
-- A `Shallow copy` of an object is a copy whose properties share the same references (point to the same underlying values) as those of the source object from which the copy was made. ***As a result, when you change either the source or the copy, you may also cause the other object to change too.***
+- A `Shallow copy` of an object is a copy whose properties share the same references (point to the same underlying values) as those of the source object from which the copy was made.<mark> ***As a result, when you change either the source or the copy, you may also cause the other object to change too.*** </mark>
 That behavior contrasts with the behavior of a deep copy, in which the source and copy are completely independent
 
-- A `Deep copy` is contrasts (complete opposite) to `Shallow copy`. A `Deep copy` of an object is a copy whose properties do not share the same references (point to the same underlying values) as those of the source object from which the copy was made. ***As a result, when you change either the source or the copy, you can be assured you're not causing the other object to change too.***
+- A `Deep copy` is contrasts (complete opposite) to `Shallow copy`. A `Deep copy` of an object is a copy whose properties do not share the same references (point to the same underlying values) as those of the source object from which the copy was made. <mark>***As a result, when you change either the source or the copy, you can be assured you're not causing the other object to change too.***</mark>
 
-## Difference between Spread(...) Operator and Rest(...) Opeator ? And when to use what ?
+## Difference between Spread(...) Operator and Rest(...) Operator ? And when to use what ?
 - Great question—this trips up a lot of people at first because spread and rest use the same syntax (...) but do opposite jobs depending on where you use them.
 
 Let’s break it down cleanly and intuitively.
