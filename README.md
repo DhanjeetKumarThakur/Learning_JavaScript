@@ -4,6 +4,21 @@ A code repo to practice JavaScript using the codespaces.
 ## To see the list of unclosed or running codespaces instances
 - [https://github.com/codespaces](https://github.com/codespaces)
 
+## 📚 Table of Contents
+
+- [Variables](#variables)
+- [The Golden Rules](#the-golden-rules)
+- [Arrays](#arrays)
+- [Spread vs Rest Operator](#spread-vs-rest-operator)
+- [Destructuring](#destructuring)
+- [IIFE](#iife)
+- [Callback Functions](#callback-functions)
+- [Higher Order Functions](#high-order-functions)
+- [Hoisting in JavaScript](#hoisting-in-javascript)
+- [JavaScript Errors](#javascript-errors---quick-notes)
+- [Interview Tip](#interview-tip)
+- [Other Important Links](#other-important-links)
+
 ## Variables
 - In Javascript variables are declared in three ways ie. `let`, `const` & `var`. 
 ```javascript
@@ -32,7 +47,7 @@ console.log(a);  //Error
 ```
 **Note:** Prefer not use var because of issue in block and functional scope
 
-## The Golden Rules (memorize THESE)
+## The Golden Rules
 
 💡 Rule #1
 - `+` with a string → string concatenation eg: "5"+2 //`output : "52"`
@@ -70,19 +85,20 @@ function(){} // true
 if ("") console.log("no");   // ❌ if check fails
 if ([]) console.log("yes");  // ✅if check pass
 ```
-# Arrays
+## Arrays
 - JavaScript array-copy operations create shallow copies. (All standard built-in copy operations with any JavaScript objects create shallow copies, rather than deep copies).
 - A `Shallow copy` of an object is a copy whose properties share the same references (point to the same underlying values) as those of the source object from which the copy was made.<mark> ***As a result, when you change either the source or the copy, you may also cause the other object to change too.*** </mark>
 That behavior contrasts with the behavior of a deep copy, in which the source and copy are completely independent
 
 - A `Deep copy` is contrasts (complete opposite) to `Shallow copy`. A `Deep copy` of an object is a copy whose properties do not share the same references (point to the same underlying values) as those of the source object from which the copy was made. <mark>***As a result, when you change either the source or the copy, you can be assured you're not causing the other object to change too.***</mark>
 
-## Difference between Spread(...) Operator and Rest(...) Operator ? And when to use what ?
+## Spread vs Rest Operator
+### Difference between Spread(...) Operator and Rest(...) Operator ? And when to use what ?
 - Great question—this trips up a lot of people at first because spread and rest use the same syntax (...) but do opposite jobs depending on where you use them.
 
 Let’s break it down cleanly and intuitively.
 
-## 1️⃣ Spread Operator 
+### 1️⃣ Spread Operator 
 👉 Used when you want to expand an array, object, or iterable into individual elements. 
 - Example : Arrays
 ```js
@@ -103,7 +119,7 @@ const b = [3, 4];
 const combined = [...a, ...b];
 console.log(combined); // [1, 2, 3, 4]
 ```
-## Objects
+### Objects
 ```js
 const user = { name: "Alex", age: 25 };
 
@@ -117,7 +133,7 @@ Output:
 ```
 This is huge in React and modern JS for immutability.
 
-## 2️⃣ Rest Operator
+### 2️⃣ Rest Operator
 👉 Used when you want to collect multiple values into a single array or object.
 
 In function parameters
@@ -158,7 +174,7 @@ console.log(rest); // { age: 30, city: "NY" }
 ## Destructuring
 **Destructuring** lets you **take values out of arrays or objects and store them in variables easily.**
 
-Example 1: Object destructuring
+### Example 1: Object destructuring
 ```js
 const user = { name: "Alex", age: 25 };
 
@@ -168,8 +184,7 @@ console.log(name); // Alex
 console.log(age);  // 25
 ```
 👉 Instead of user.name, you directly get name.
-#
-Example 2: Array destructuring
+### Example 2: Array destructuring
 ```js
 const colors = ["red", "blue"];
 
@@ -204,7 +219,7 @@ Here
 - After destructuring, you must use the new variable name, not the original key.
 
 
-##  IIFE ()
+## IIFE
  Why we need **IIFE (Immediately Invoke Function Expressions)** ?
 
 - ***An IIFE (Immediately Invoked Function Expression) is used to run a function right away and keep variables private.***
@@ -341,7 +356,7 @@ let name = "Hitesh";
 ```
 FYR for more examples to understand Hoisting see the [Hoisting example](01_basics/MyNotes.md)
 
-# JavaScript Errors - Quick Notes
+## JavaScript Errors - Quick Notes
 
 ## 1. SyntaxError
 
@@ -608,7 +623,7 @@ throw new IllegalArgumentException("Amount cannot be negative");
 
 ---
 
-# Summary Table
+## Summary Table
 
 | Error Type     | When it Occurs                | Java Analogy                                         |
 | -------------- | ----------------------------- | ---------------------------------------------------- |
@@ -620,7 +635,7 @@ throw new IllegalArgumentException("Amount cannot be negative");
 | EvalError      | Related to `eval()` (rare)    | No common equivalent                                 |
 | Error          | Custom application errors     | `throw new Exception()` / `IllegalArgumentException` |
 
-# Interview Tip
+## Interview Tip
 
 If asked about JavaScript errors, mention these in order:
 
