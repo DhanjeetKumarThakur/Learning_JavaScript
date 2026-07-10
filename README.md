@@ -14,6 +14,7 @@ A code repo to practice JavaScript using the codespaces.
 - [IIFE](#iife)
 - [Callback Functions](#callback-functions)
 - [Higher Order Functions](#high-order-functions)
+- [Closure](#closure)
 - [Hoisting in JavaScript](#hoisting-in-javascript)
 - [JavaScript Errors](#javascript-errors---quick-notes)
 - [Interview Tip](#interview-tip)
@@ -365,13 +366,13 @@ arr.forEach(printValue);
 So even though the function has a name, it’s still a callback function because it’s passed into another function 👍
 
 ## High Order Functions
-### A higher-order function is a function that takes another function as a parameter or returns a function.
+A higher-order function is a function that takes another function as a parameter or returns a function.
 
 Example (takes a function):
 ```js
 arr.forEach(printValue);
 ```
-Here, `forEach` is a higher-order function because it takes printValue as axn argument.
+Here, `forEach` is a higher-order function because it takes printValue as an argument.
 
 Example (returns a function):
 ```js
@@ -384,6 +385,60 @@ function multiply(factor) {
 Short version to remember:
 #### **Higher-order function = uses functions as values**
 
+## Closure 
+A closure is a feature in JavaScript where an inner function retains access to the variables and scope of its outer function, even after that outer function has finished executing. 
+
+> In simple terms **Closure**, the inner function retains the variables even after the outer function is executed.
+
+Example Code: 
+```js
+function counter() {
+    let count = 0;
+
+    return function() {
+        count++;
+        return count;
+    };
+}
+
+const c1 = counter();
+
+console.log(c1());
+console.log(c1());
+console.log(c1());
+
+Output:
+1
+2
+3
+```
+**Why isn't count reset to 0?**
+
+Because **c1 still holds the function()** in it we are using `count` variable (i.e count++ post increment) because of closure the the function is still have the access to count variable.
+
+When counter() finishes, JavaScript would normally discard its local variables. However, because the returned function still references count, JavaScript keeps that lexical environment alive.
+
+So count remains available as long as the returned function exists.
+
+> A closure is a function together with the lexical environment in which it was created.
+The phrase "lexical environment" may sound intimidating now, but it simply means:
+
+> The function remembers the variables that were in scope when it was created.
+
+That's why this works:
+```js
+function outer() {
+    let x = 10;
+
+    return function () {
+        console.log(x);
+    };
+}
+
+Output:
+10
+```
+For more examples to understand Higher Order, Callback and Closure click on 👉[HOF, CBF & Closure](03_basics/HOF_CBF_Notes.md)
 ## Hoisting in Javascript.
 
 **Hoisting** is the behavior where JavaScript processes declarations before executing code.
