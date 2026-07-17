@@ -13,7 +13,7 @@ A code repo to practice JavaScript using the codespaces.
 - [Destructuring](#destructuring)
 - [IIFE](#iife)
 - [Callback Functions](#callback-functions)
-- [Common Question](#common-question)
+- [Common Questions on Callback Function, Higher Order Function ](#common-question)
 - [Higher Order Functions](#high-order-functions)
 - [Closure](#closure)
 - [Hoisting in JavaScript](#hoisting-in-javascript)
