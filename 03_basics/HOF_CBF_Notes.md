@@ -113,9 +113,76 @@ Observe the above code, We have passed an function expression as parameters in t
 ### Why do we pass a function instead of calling it immediately?
  > That is callback function, it will be called back by higher order function. ___Higher Order function will control the execution of callback function and it's completely depends on scenario___ 
  >> For example in the above code **the callback function is executed in between the two console statement**. Because that's how we wanted the output, first we wanted to display **"Starting Download"** which is the first console statment then our callback function to be executed so that it will console **"Downloading..."** and then last statement which is another console statement to print **"Finished Download"**.
-
-
 ---
+
+### Why callback function is called as **"Callback function"** ? Why not just **"parameter function"**?
+
+Because the important part is timing.  
+
+Callback = "Don't run now. Run me back later when X happens.
+
+So: **Callback = a function that gets called back by another function after some work is done.**
+
+"Other patterns like this: Event listeners, setTimeout, Promise.then, array.forEach
+
+The name comes from the pattern: **"Call me back when you're done".** 
+
+### 3 Common Cases:
+**1.Last line - after work is done.**
+```javascript
+function fetchData(url, callback) {
+  const data = getDataFromAPI(url) // step 1
+  process(data) // step 2
+  callback(data) // step 3 - last line
+}
+```
+Here yes, callback runs at the end.
+
+**2.Multiple times - in the middle**
+```javascript
+function forEach(arr, callback) {
+  for(let i = 0; i < arr.length; i++) {
+    callback(arr[i]) // <-- called every loop, not last line
+  }
+  // some cleanup here
+}
+```
+forEach, map, filter all do this.
+
+**3.Maybe never called**
+```javascript
+function validate(input, onSuccess, onError) {
+  if(input.valid) {
+    onSuccess() // called
+  } else {
+    onError() // called instead
+  }
+}
+```
+Or in error handling, it might not run at all.
+
+**4.Called first**
+```javascript
+function setup(callback) {
+  callback() // run immediately
+  console.log("setup done")
+}
+```
+
+
+## **The real meaning of "callback"**
+
+**"Callback" ≠ "last line"**
+
+**"Callback" = "I will call this function back for you when I need to"**
+
+___The HOF controls when and how many times it calls back.___
+
+**Rule of thumb:**
+
+- If it's async: usually at the end, after data comes back
+- If it's sync like map/forEach: in the middle, many times
+
 
 ## Closure 
 A closure is a feature in JavaScript where an inner function retains access to the variables and scope of its outer function, even after that outer function has finished executing. 

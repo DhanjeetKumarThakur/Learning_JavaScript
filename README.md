@@ -13,6 +13,7 @@ A code repo to practice JavaScript using the codespaces.
 - [Destructuring](#destructuring)
 - [IIFE](#iife)
 - [Callback Functions](#callback-functions)
+- [Common Question](#common-question)
 - [Higher Order Functions](#high-order-functions)
 - [Closure](#closure)
 - [Hoisting in JavaScript](#hoisting-in-javascript)
@@ -364,6 +365,74 @@ arr.forEach(printValue);
 - 🔹 forEach calls it for each array element
 
 So even though the function has a name, it’s still a callback function because it’s passed into another function 👍
+
+## Common Question
+### Why callback function is called as **"Callback function"** ? Why not just **"parameter function"**?
+
+Because the important part is timing.  
+
+Callback = "Don't run now. Run me back later when X happens.
+
+So: **Callback = a function that gets called back by another function after some work is done.**
+
+"Other patterns like this: Event listeners, setTimeout, Promise.then, array.forEach
+
+The name comes from the pattern: **"Call me back when you're done".** 
+
+### 3 Common Cases:
+**1.Last line - after work is done.**
+```javascript
+function fetchData(url, callback) {
+  const data = getDataFromAPI(url) // step 1
+  process(data) // step 2
+  callback(data) // step 3 - last line
+}
+```
+Here yes, callback runs at the end.
+
+**2.Multiple times - in the middle**
+```javascript
+function forEach(arr, callback) {
+  for(let i = 0; i < arr.length; i++) {
+    callback(arr[i]) // <-- called every loop, not last line
+  }
+  // some cleanup here
+}
+```
+forEach, map, filter all do this.
+
+**3.Maybe never called**
+```javascript
+function validate(input, onSuccess, onError) {
+  if(input.valid) {
+    onSuccess() // called
+  } else {
+    onError() // called instead
+  }
+}
+```
+Or in error handling, it might not run at all.
+
+**4.Called first**
+```javascript
+function setup(callback) {
+  callback() // run immediately
+  console.log("setup done")
+}
+```
+
+## **The real meaning of "callback"**
+
+**"Callback" ≠ "last line"**
+
+**"Callback" = "I will call this function back for you when I need to"**
+
+___The HOF controls when and how many times it calls back.___
+
+**Rule of thumb:**
+
+- If it's async: usually at the end, after data comes back
+- If it's sync like map/forEach: in the middle, many times
 
 ## High Order Functions
 A higher-order function is a function that takes another function as a parameter or returns a function.
