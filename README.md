@@ -19,6 +19,7 @@ A code repo to practice JavaScript using the codespaces.
 - [Hoisting in JavaScript](#hoisting-in-javascript)
 - [JavaScript Errors](#javascript-errors---quick-notes)
 - [Interview Tip](#interview-tip)
+- [call, apply & bind](#call-apply-and-bind)
 - [Other Important Links](#other-important-links)
 
 ## Variables
@@ -865,6 +866,108 @@ If asked about JavaScript errors, mention these in order:
 
 For day-to-day JavaScript development, you'll mostly encounter **TypeError**, **ReferenceError**, **SyntaxError**, and **custom errors**.
 
+## call(), apply() and bind()
+All 3 are used to **explicitly set what `this` refers to** inside a function. They also let you "borrow" a function and use it on a different object.
+
+### *The Problem They Solve*
+By default, `this` depends on _how_ a function is called. Sometimes we want to force `this` to be a specific object.
+```js
+const user1 = { name: "Vishnu" }
+const user2 = { name: "Riya" }
+
+function greet() {
+  console.log(`Hello, I'm ${this.name}`)
+}
+
+greet() // this.name is undefined
+```
+### *1. `call()` - Call immediately, arguments as a list*
+**Syntax:** `function.call(thisArg, arg1, arg2, ...)`  
+**What it does:** Calls the function right away. Sets `this` to `thisArg`. Pass arguments one by one.
+```js
+const person1 = { name: "Vishnu", age: 25 }
+const person2 = { name: "Riya", age: 22 }
+
+function introduce(city, country) {
+  console.log(`Hi, I'm ${this.name}. I live in ${city}, ${country}`)
+}
+
+introduce.call(person1, "Chanda Nagar", "India")
+// Output: Hi, I'm Vishnu. I live in Chanda Nagar, India
+
+introduce.call(person2, "Hyderabad", "India") 
+// Output: Hi, I'm Riya. I live in Hyderabad, India
+```
+We "borrowed" the `introduce` function and ran it with `person1` as `this`.
+
+### *2. `apply()` - Call immediately, arguments as an array*
+*Syntax:* `function.apply(thisArg, [arg1, arg2, ...])`  
+*What it does:* Same as `call()`, but arguments must be in an array. 
+
+Use this when you already have arguments in an array.
+```js
+const person1 = { name: "Vishnu" }
+
+function introduce(city, country) {
+  console.log(`Hi, I'm ${this.name}. I live in ${city}, ${country}`)
+}
+
+const details = ["Chanda Nagar", "India"]
+
+introduce.apply(person1, details)
+// Output: Hi, I'm Vishnu. I live in Chanda Nagar, India
+```
+**Classic use case:**
+```js
+const numbers = [5, 1, 9, 3]
+console.log(Math.max.apply(null, numbers)) // 9
+// Same as Math.max(5, 1, 9, 3)
+```
+### *3. `bind()` - Returns a new function*
+**Syntax:** `const newFunc = function.bind(thisArg, arg1, arg2, ...)`  
+**What it does:** Does NOT call the function. It returns a new function with `this` permanently bound to `thisArg`.
+
+Use this when you want to call the function later.
+```js
+const person1 = { name: "Vishnu" }
+
+function greet() {
+  console.log(`Hello, I'm ${this.name}`)
+}
+
+const greetVishnu = greet.bind(person1) // create new function
+
+greetVishnu() // call it later
+// Output: Hello, I'm Vishnu
+```
+
+**Real example: Event handlers**
+```js
+const button = {
+  label: "Click Me",
+  click: function() {
+    console.log(this.label)
+  }
+}
+
+document.getElementById("btn").addEventListener("click", button.click.bind(button))
+// Without bind, `this` would be the button element, not our `button` object
+```
+### *Quick Summary Table*
+|**Method** | **Executes Now?** | **Argument Style** | **Returns**|
+|-----------|-------------------|-------------------|-------------|
+|**call()** | Yes | Comma separated `a, b, c` | The function's return value|
+|**apply()** | Yes | Array `[a, b, c]` | The function's return value|
+|**bind()** | No | Comma separated `a, b, c` | A new function with `this` set|
+
+### *Memory Trick*
+`C` → *C*all → *C*omma separated  
+`A` → *A*pply → *A*rray of arguments  
+`B` → *B*ind → *B*uilds a new function
+
+*In one line:*  
+`call` and `apply` invoke the function immediately with a custom `this`.  
+`bind` gives you a new function with `this` locked in for later.
 
 ### Other Important Links: 
 - https://react.dev/reference/react
