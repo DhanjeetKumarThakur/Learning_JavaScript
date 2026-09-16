@@ -20,6 +20,7 @@ A code repo to practice JavaScript using the codespaces.
 - [JavaScript Errors](#javascript-errors---quick-notes)
 - [Interview Tip](#interview-tip)
 - [call, apply & bind](#call-apply-and-bind)
+- [Prototype, Inheritance in Java](#JavaScript-Prototype)
 - [Other Important Links](#other-important-links)
 
 ## Variables
@@ -980,6 +981,212 @@ Every time you create an object or function in JavaScript, the engine automatica
 ### `prototype` vs `__proto__`
 1. **`__proto__` (The Instance Link):** Every object has a `__proto__` property (conceptually known as [[Prototype]]). It points directly to the prototype object it inherits from.
 2. **`prototype` (The Constructor Blueprint):** Only functions (and classes) have a .prototype property. This is not the prototype of the function itself; it is the blueprint that will become the __proto__ for any new objects created using that function with the new keyword.
+
+Let's understand this through an example.
+
+```js
+const p1 = {
+    actor_firstName: 'Ajay',
+    actor_lastName: 'Devgan',
+
+    getMovie() {
+        return 'Drishyam 2'
+    }
+}
+```
+
+So here I have created a normal object `p1`.
+
+Now let's create another object:
+
+```js
+const p2 = Object.create(p1);
+```
+
+At first, if I print `p2`:
+
+```js
+console.log(p2);
+```
+
+I get:
+
+```text
+{}
+```
+
+So it looks like `p2` is just an empty object.
+
+But wait...
+
+If `p2` is empty, then how is this working?
+
+```js
+console.log(p2.actor_firstName);
+// Ajay
+
+console.log(p2.getMovie());
+// Drishyam 2
+```
+
+I never created `actor_firstName` inside `p2`.
+
+I never created `getMovie()` inside `p2`.
+
+So **how is `p2` able to access them?**
+
+This is where **prototype** comes into the picture.
+
+## So, What Actually Happened?
+
+When I wrote:
+
+```js
+const p2 = Object.create(p1);
+```
+
+JavaScript created a new object and set `p1` as the prototype of that new object.
+
+So conceptually, I can think of it like this:
+
+```text
+p2
+ |
+ | __proto__
+ ↓
+p1
+```
+
+Therefore, when I ask:
+
+```js
+p2.actor_firstName
+```
+
+JavaScript first checks:
+
+> "Does `p2` itself have `actor_firstName`?"
+
+No.
+
+Then JavaScript checks its prototype:
+
+> "Okay, does the object connected through `p2`'s prototype have `actor_firstName`?"
+
+Yes — `p1` has it.
+
+So JavaScript gives me:
+
+```text
+Ajay
+```
+
+The same thing happens with:
+
+```js
+p2.getMovie();
+```
+
+`getMovie()` is not inside `p2`.
+
+JavaScript finds it in `p1` through the prototype relationship.
+
+And **this is basically how inheritance works in JavaScript.**
+
+---
+
+## Then What is `__proto__`?
+
+Now I can inspect this relationship using:
+
+```js
+console.log(p2.__proto__);
+```
+
+I will get `p1`.
+
+So I can think of:
+
+```js
+p2.__proto__ === p1
+```
+
+as:
+
+> "`p2`'s prototype is `p1`."
+
+This `__proto__` is the prototype link of the object.
+
+So whenever I see:
+
+```js
+p2.__proto__
+```
+
+I should think:
+
+> **"Which object does `p2` inherit from?"**
+
+In this case:
+
+```text
+p2.__proto__ → p1
+```
+
+---
+
+# Let's Go One Step Further — Prototype Chain
+
+Okay, now I know that one object can inherit from another object.
+
+But what if the parent object itself has a parent?
+
+Let's try that.
+
+```js
+const p1 = {
+    xp1: 'I am inside p1'
+}
+
+const p2 = {
+    xp2: 'I am inside p2',
+    __proto__: p1
+}
+
+const p3 = {
+    xp3: 'I am inside p3',
+    __proto__: p2
+}
+```
+
+Now look carefully at the relationship:
+
+```text
+p3
+ ↓
+p2
+ ↓
+p1
+```
+
+So can `p3` access a property from `p1`?
+
+Yes.
+
+```js
+console.log(p3.xp1);
+// I am inside p1
+```
+
+But `xp1` is not inside `p3`.
+
+It is not even inside `p2`.
+
+It is inside `p1`.
+
+So JavaScript keeps going through the **prototype chain** until it finds the property.
+
+👉 Refer Notes [Prototype & Inheritance in Java ](Prototype/Notes.md)
 
 
 ### Other Important Links: 
