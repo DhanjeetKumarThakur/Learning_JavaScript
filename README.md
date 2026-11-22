@@ -20,7 +20,8 @@ A code repo to practice JavaScript using the codespaces.
 - [JavaScript Errors](#javascript-errors---quick-notes)
 - [Interview Tip](#interview-tip)
 - [call, apply & bind](#call-apply-and-bind)
-- [Prototype, Inheritance in Java](#JavaScript-Prototype)
+- [Prototype, Inheritance in Java](#javascript-prototype)
+- [Interview Questions](#interview-questions)
 - [Other Important Links](#other-important-links)
 
 ## Variables
@@ -1135,7 +1136,7 @@ p2.__proto__ → p1
 
 ---
 
-# Let's Go One Step Further — Prototype Chain
+### Let's Go One Step Further — Prototype Chain
 
 Okay, now I know that one object can inherit from another object.
 
@@ -1187,6 +1188,240 @@ It is inside `p1`.
 So JavaScript keeps going through the **prototype chain** until it finds the property.
 
 👉 Refer Notes [Prototype & Inheritance in Java ](Prototype/Notes.md)
+
+---
+## Interview questions 
+
+
+### Why `console.log([] == ![])` is `true` and `console.log([] == false)` is also `true`?
+
+These are classic JavaScript gotchas that demonstrate how **loose equality (****`==`****)** works behind the scenes.
+
+Let's understand the type coercion rules step by step.
+
+### 1\. Why is `[] == false` true?
+
+When you compare an object (like an array) with a boolean using `==`, JavaScript performs implicit type conversions.
+
+### Step-by-step execution
+
+**Step 1: Convert Boolean to Number**
+
+When comparing a boolean with another value, JavaScript converts the boolean into a number.
+
+javascript
+
+```javascript
+false -> 0
+```
+
+Now the expression becomes:
+
+javascript
+
+```javascript
+[] == 0
+```
+
+**Step 2: Convert Array to Primitive**
+
+An array is an object in JavaScript. When compared with a primitive value, JavaScript converts the object into a primitive.
+
+An empty array converts to an empty string:
+
+javascript
+
+```javascript
+[] -> ''
+```
+
+Now the expression becomes:
+
+javascript
+
+```javascript
+'' == 0
+```
+
+**Step 3: Convert String to Number**
+
+When comparing a string with a number, JavaScript converts the string into a number.
+
+javascript
+
+```javascript
+Number('') -> 0
+```
+
+Now the expression becomes:
+
+javascript
+
+```javascript
+0 == 0
+```
+
+**Step 4: Final Comparison**
+
+javascript
+
+```javascript
+0 == 0 // true
+```
+
+Therefore:
+
+javascript
+
+```javascript
+console.log([] == false); // true
+```
+
+---
+
+### 2\. Why is `[] == ![]` true?
+
+This one is slightly trickier because of the logical NOT (`!`) operator.
+
+### Step-by-step execution
+
+**Step 1: Understand the Logical NOT (****`!`****) Operator**
+
+The `!` operator converts a value into a boolean and reverses it.
+
+In JavaScript, all objects are truthy, including empty arrays (`[]`).
+
+javascript
+
+```javascript
+Boolean([]); // true
+![];         // false
+```
+
+Therefore, the expression:
+
+javascript
+
+```javascript
+[] == ![]
+```
+
+Becomes:
+
+javascript
+
+```javascript
+[] == false
+```
+
+**Step 2: Apply Loose Equality (****`==`****)**
+
+As we already discussed in the previous example:
+
+javascript
+
+```javascript
+[] == false
+```
+
+JavaScript performs the following conversions:
+
+javascript
+
+```javascript
+[] == false
+'' == 0
+0 == 0
+```
+
+**Step 3: Final Comparison**
+
+javascript
+
+```javascript
+console.log([] == ![]); // true
+```
+
+---
+
+## 3\. Summary Table
+
+| Conversion Step | `[] == false` | `[] == ![]` |
+| --- | --- | --- |
+| Initial Expression | `[] == false` | `[] == ![]` |
+| Evaluate `!` | N/A | `[] == false` |
+| Convert Boolean | `[] == 0` | `[] == 0` |
+| Convert Array | `'' == 0` | `'' == 0` |
+| Convert String to Number | `0 == 0` | `0 == 0` |
+| Final Result | `true` | `true` |
+
+---
+
+## 4\. What Happens When We Use `===` Instead?
+
+JavaScript provides two equality operators:
+
+- `==` (Loose Equality): Performs type coercion before comparison when required.
+- `===` (Strict Equality): Compares values without performing type coercion.
+
+Let's see the difference:
+
+javascript
+
+```javascript
+console.log([] == false);  // true
+console.log([] === false); // false
+
+console.log([] == ![]);    // true
+console.log([] === ![]);   // false
+```
+
+Why?
+
+Because:
+
+- `[]` is an object.
+- `false` is a boolean.
+- `===` does not convert the array into a boolean or number to make the types match.
+
+Therefore, both strict equality comparisons return `false`.
+
+---
+
+## 5\. Key Takeaways
+
+1. **Empty arrays are truthy in JavaScript.**javascript
+   ```javascript
+   Boolean([]); // true
+   ```
+2. **The logical NOT (****`!`****) operator converts a value into a boolean and reverses it.**javascript
+   ```javascript
+   ![]; // false
+   ```
+3. **Loose equality (****`==`****) performs implicit type conversions.**javascript
+   ```javascript
+   [] == false; // true
+   ```
+4. **An empty array converts into an empty string when converted to a primitive.**javascript
+   ```javascript
+   String([]); // ''
+   ```
+5. **An empty string converts into zero when converted to a number.**javascript
+   ```javascript
+   Number(''); // 0
+   ```
+6. **Strict equality (****`===`****) avoids these implicit type conversions.**javascript
+   ```javascript
+   [] === false; // false
+   ```
+
+### Conclusion
+
+The reason both expressions return `true` is JavaScript's **type coercion mechanism**.
+
+When using `==`, JavaScript automatically converts values into compatible types before comparing them. These implicit conversions can sometimes produce unexpected results.
+
+**Best Practice:** Prefer `===` (strict equality) over `==` in professional JavaScript development to avoid unexpected type coercion and improve code predictability.
 
 
 ### Other Important Links: 
