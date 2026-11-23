@@ -1423,6 +1423,56 @@ When using `==`, JavaScript automatically converts values into compatible types 
 
 **Best Practice:** Prefer `===` (strict equality) over `==` in professional JavaScript development to avoid unexpected type coercion and improve code predictability.
 
+---
+```js
+// Task 2: fix the label that treats 0 as not counted
+//
+// When count is null or undefined, return 'Not counted yet'.
+// Otherwise return the count, a space and 'left'. It is broken
+// now: a count of 0 shows 'Not counted yet'.
+//
+//   Export:   stockLabel(count)
+//   Returns:  a string
+//   Example:  stockLabel(12) gives '12 left'
+//             stockLabel(0) gives '0 left'
+//             stockLabel(undefined) gives 'Not counted yet'
+//   Edge:     null gives 'Not counted yet' too
+//
+// Stuck? Press "What do I do next?" under this task. Fix the
+// return line below.
+
+export function stockLabel(count) {
+  //return count != null ? `${count} left` : 'Not counted yet';
+  return count != null && count != undefined ? `${count} left` : 'Not counted yet';
+}
+```
+
+In the above code even the commented return statement will work fine. So which is better and why ?
+
+Great observation! You are absolutely right—both versions work perfectly.
+
+In JavaScript, `count != null` is a "loose inequality" check that specifically catches both null and undefined at the same time.
+
+Which is better?
+
+The commented version (`count != null`) is better.
+
+Here is why:
+
+1. __Conciseness:__ It is cleaner and more idiomatic. In JavaScript, `null` and `undefined` are "loosely equal" to each other (`null == undefined` is `true`). Because of this, checking `!= null` is a standard, widely-accepted shorthand for "is this value not null and not undefined?"
+
+2. __Redundancy:__ Your second version (`count != null && count != undefined`) is technically redundant. Since `null == undefined` is true, if `count != null` is `true`, then `count != undefined` is guaranteed to be true as well. You are essentially checking the same thing twice.
+
+__A note on "Best Practice"__ 
+
+While `!= null` is very common, many professional teams prefer to be explicit about their intentions. If you want to be perfectly clear that you are checking for "missing" values, you can use:
+```js
+// This is very explicit and safe
+return (count !== null && count !== undefined) ? `${count} left` : 'Not counted yet';
+```
+However, in the world of JavaScript, `count != null` is the "pro" way to write it because it leverages the language's built-in behavior to keep your code short and readable.
+
+__Summary:__ Stick with the shorter version! It’s cleaner, does exactly the same thing, and is the standard way experienced developers handle this specific check.
 
 ### Other Important Links: 
 - https://react.dev/reference/react
