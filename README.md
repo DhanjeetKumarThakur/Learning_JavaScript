@@ -1474,6 +1474,41 @@ However, in the world of JavaScript, `count != null` is the "pro" way to write i
 
 __Summary:__ Stick with the shorter version! It’s cleaner, does exactly the same thing, and is the standard way experienced developers handle this specific check.
 
+---
+
+```js
+// Task 3 (interview question): NaN, isNaN and Object.is
+//
+// Predict what each expression below gives, and export the ten
+// answers in this order. Nine are true or false, and the typeof
+// one is text, written as a string. The check works out the
+// same ten expressions and compares.
+//
+//   Export:   emptinessPredictions
+//   Returns:  an array of ten values
+//
+//   NaN === NaN
+//   Number.isNaN(NaN)
+//   isNaN('chai')
+//   Number.isNaN('chai')
+//   Object.is(NaN, NaN)
+//   typeof NaN
+//   null == undefined
+//   null === undefined
+//   0 === -0
+//   Object.is(0, -0)
+//
+// The interviewer will ask: what does each of isNaN and
+// Number.isNaN check, and when can Object.is and === give
+// different answers?
+//
+// Stuck? Press "What do I do next?" under this task. Write
+// your ten answers between the square brackets.
+export const emptinessPredictions = [
+  false, true, true, false, true, 'number', true, false, true, false
+];
+```
+
 ### Other Important Links: 
 - https://react.dev/reference/react
 - Frontend coding standards: https://github.com/airbnb/javascript
