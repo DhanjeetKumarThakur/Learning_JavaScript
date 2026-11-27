@@ -1344,7 +1344,7 @@ console.log([] == ![]); // true
 
 ---
 
-## 3\. Summary Table
+### 3\. Summary Table
 
 | Conversion Step | `[] == false` | `[] == ![]` |
 | --- | --- | --- |
@@ -1355,9 +1355,8 @@ console.log([] == ![]); // true
 | Convert String to Number | `0 == 0` | `0 == 0` |
 | Final Result | `true` | `true` |
 
----
 
-## 4\. What Happens When We Use `===` Instead?
+### 4\. What Happens When We Use `===` Instead?
 
 JavaScript provides two equality operators:
 
@@ -1386,9 +1385,8 @@ Because:
 
 Therefore, both strict equality comparisons return `false`.
 
----
 
-## 5\. Key Takeaways
+### 5\. Key Takeaways
 
 1. **Empty arrays are truthy in JavaScript.**javascript
    ```javascript
@@ -1508,6 +1506,37 @@ export const emptinessPredictions = [
   false, true, true, false, true, 'number', true, false, true, false
 ];
 ```
+
+---
+
+```
+const areas = ['domlur', 'HSR Layout', 'Indiranagar', 'ejipura'];
+console.log(areas.toSorted());
+console.log(areas.toSorted((a, b) => a.localeCompare(b)));
+```
+### Explain the above code
+
+This code demonstrates how JavaScript sorts strings in two different ways.
+
+**1. The default `toSorted()`**
+```js
+console.log(areas.toSorted());
+```
+When you call `toSorted()` without arguments, JavaScript converts every item to a string and compares them based on their **Unicode character codes.**
+
+- In Unicode, all uppercase letters (A-Z) come before lowercase letters (a-z).
+- That is why 'HSR Layout' and 'Indiranagar' appear before 'domlur' and 'ejipura'.
+
+**2. The localeCompare approach**
+```JS
+console.log(areas.toSorted((a, b) => a.localeCompare(b)));
+```
+This uses a comparator function. `localeCompare` is a built-in string method that compares strings according to language-specific rules (like a dictionary).
+
+- It ignores the case difference, so it treats 'd' and 'D' as effectively the same for sorting purposes.
+- It returns a negative number if `a` should come before `b`, a positive number if `a` should come after `b`, and `0` if they are equal.
+
+**In short:** The first one sorts by computer logic (ASCII/Unicode), and the second one sorts by human logic (dictionary order).
 
 ### Other Important Links: 
 - https://react.dev/reference/react
